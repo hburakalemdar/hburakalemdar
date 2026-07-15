@@ -161,6 +161,12 @@ a {
 a:hover {
   text-decoration-thickness: 2px;
 }
+/* Klavye focus göstergesi — hover'dan bağımsız, her linkte korunur (a11y) */
+a:focus-visible {
+  outline: 2px solid var(--renk-metin);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
 
 hr {
   border: none;
@@ -275,9 +281,11 @@ a.kat:hover {
   font-size: 1.15rem;
   color: var(--renk-metin);
   text-decoration: none;
+  transition: color 0.15s ease;
 }
+/* Hover: sadece açıklık artar (siyah → ~#555). Hue aynı, accent/kırmızı YOK, alt çizgi YOK. */
 .site-ust a.marka:hover {
-  color: var(--accent);
+  color: #555555;
 }
 .site-ust nav {
   display: flex;
@@ -291,8 +299,11 @@ a.kat:hover {
   color: var(--renk-meta);
   text-decoration: none;
 }
+/* Hover: renk değişmez; tek geri bildirim alt çizgi */
 .site-ust nav a:hover {
-  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
 }
 
 /* ---- Site alt / footer ---- */
@@ -313,8 +324,11 @@ a.kat:hover {
   color: var(--renk-meta);
   text-decoration: none;
 }
+/* Hover: renk değişmez; nav ile aynı — sadece alt çizgi */
 .site-alt a:hover {
-  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
 }
 
 /* ---- İmza öğe: yazı listesi (solda mono meta · sağda başlık) ---- */

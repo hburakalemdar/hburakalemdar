@@ -172,3 +172,22 @@ gereksiz daraltıyordu. Liste sayfalarında düzyazı OKUNMUYOR, TARANIYOR — o
   `margin-inline: auto` ile geniş kabuk (1100px) içinde ortalandı. Ölçüldü:
   kabuk içi sol boşluk = sağ boşluk = 241px; başlık ile gövde aynı sol kenarda;
   header/footer ile aynı merkez ekseni.
+
+## 2026-07-15 — Hover davranışları: accent nav/başlıkta değil (8. tur)
+
+Accent (oxblood) artık YALNIZCA içerik/prose linklerinde (yazı gövdesi, hakkında).
+Site kromu (marka, nav, footer) accent kullanmaz.
+
+- **Site başlığı (marka) hover: siyah → `#555`, sadece açıklık.** Hue aynı (nötr
+  gri), accent/kırmızı yok, alt çizgi yok. `transition: color 0.15s ease`.
+  Doğrulandı: hover `rgb(85,85,85)`, `text-decoration: none`.
+- **Nav linkleri hover: renk değişmez, tek geri bildirim alt çizgi.**
+  `text-decoration: underline; text-underline-offset: 0.3em; thickness: 1px`.
+  Doğrulandı: hover rengi `rgb(154,151,143)` (meta grisi, değişmedi), underline var.
+- **Footer linkleri (RSS/İletişim): nav ile aynı** — renk sabit, alt çizgi.
+  Doğrulandı: `rgb(154,151,143)` + underline.
+- **`a:focus-visible` outline eklendi (a11y).** `2px solid var(--renk-metin)`,
+  `outline-offset: 3px` — hover'dan bağımsız; klavye focus göstergesi her linkte
+  korunur, hover renginin kaldırılması bunu silmez.
+- **Not:** `.bolum-baslik a` ("Tüm yazılar →") hover'ı hâlâ accent — kullanıcının
+  saydığı 3 kalem (marka/nav/footer) dışında, bilinçli olarak dokunulmadı.
