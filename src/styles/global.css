@@ -79,7 +79,7 @@
   --olcek: 1.6; /* gövde satır yüksekliği */
   /* İki ayrı ölçü: makale gövdesi okuma için dar, liste sayfaları geniş nefes alsın */
   --measure-read: 65ch; /* SADECE tekil yazı gövdesi — uzun okuma */
-  --measure-wide: 1100px; /* liste sayfaları (/, /yazilar, /kategori/*) */
+  --measure-wide: 880px; /* liste sayfaları (/, /yazilar, /kategori/*) — ferah ama aşırı geniş değil */
 
   /* Dikey ritim: 8px katları (tek boşluk ölçeği) */
   --sp-1: 8px;

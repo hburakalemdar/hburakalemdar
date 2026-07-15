@@ -152,9 +152,10 @@ gereksiz daraltıyordu. Liste sayfalarında düzyazı OKUNMUYOR, TARANIYOR — o
 ölçüsü kısıtı orada geçersiz.
 
 - **İki ayrı ölçü.** `--measure-read: 65ch` yalnızca tekil yazı gövdesinde
-  (`.yazi-govde` — uzun okuma var). `--measure-wide: 1100px` liste sayfalarının
-  kabuk genişliği (`/`, `/yazilar`, `/kategori/*`). Ölçüldü: kabuk 1100px,
-  makale gövdesi 619px (~65ch).
+  (`.yazi-govde` — uzun okuma var). `--measure-wide` liste sayfalarının kabuk
+  genişliği (`/`, `/yazilar`, `/kategori/*`). Ölçüldü: makale gövdesi 619px (~65ch).
+  (9. tur: `--measure-wide` 1100px → **880px** düşürüldü; sütun biraz daraldı ama
+  hâlâ ferah — kullanıcı geniş buldu.)
 - **Liste içeriğinde okuma kısıtı yok.** Bio (`.giris`) ve özet (`.aciklama`)
   `max-width` kaldırıldı; geniş kabuk içinde nefes alıyorlar. Sayfa taranıyor,
   okunmuyor.
