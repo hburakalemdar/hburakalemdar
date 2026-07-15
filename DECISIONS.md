@@ -166,3 +166,9 @@ gereksiz daraltıyordu. Liste sayfalarında düzyazı OKUNMUYOR, TARANIYOR — o
   sınırlı, yalnız `pre` kendi içinde kayıyor (`overflow-x:auto`), sayfa taşması
   yok. En dar içerik öğeleri (meta nowrap ~200px, en uzun kelime ~150px) 327px
   içerik kutusunun altında.
+- **Tekil yazı okuma sütunu ORTALI (`.yazi`, 7. tur düzeltmesi).** Önceki turda
+  `.yazi-govde` 65ch'ti ama `margin-inline` yoktu → sola yapışıyor, sağda boşluk
+  kalıyordu. Kısıt tüm makale kabına (`.yazi`: meta+başlık+kapak+gövde) taşındı,
+  `margin-inline: auto` ile geniş kabuk (1100px) içinde ortalandı. Ölçüldü:
+  kabuk içi sol boşluk = sağ boşluk = 241px; başlık ile gövde aynı sol kenarda;
+  header/footer ile aynı merkez ekseni.

@@ -19,7 +19,7 @@ const { title, date, category, description, cover } = yazi.data;
 const { Content } = await render(yazi);
 ---
 <Base title={title} description={description} ogType="article">
-  <article>
+  <article class="yazi">
     <header class="yazi-ust">
       <div class="meta">
         <time datetime={tarihISO(date)}>{tarihTR(date)}</time>

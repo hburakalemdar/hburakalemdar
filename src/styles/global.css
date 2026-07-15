@@ -364,7 +364,11 @@ a.kat:hover {
   margin: var(--sp-1) 0 0;
 }
 
-/* ---- Tekil yazı ---- */
+/* ---- Tekil yazı: okuma sütunu (meta+başlık+kapak+gövde) sayfada ortalı, 65ch ---- */
+.yazi {
+  max-width: var(--measure-read); /* 65ch — sadece tekil yazıda okuma kısıtı */
+  margin-inline: auto; /* geniş kabuk içinde ortala; header/footer ile aynı eksen */
+}
 .yazi-ust {
   margin-bottom: var(--sp-4);
 }
@@ -376,7 +380,6 @@ a.kat:hover {
 }
 .yazi-govde {
   font-size: 1rem; /* 18px, gövdeyle aynı */
-  max-width: var(--measure-read); /* 65ch — sadece burada okuma kısıtı */
 }
 .yazi-govde figure {
   margin: var(--sp-3) 0;
