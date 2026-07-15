@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import YaziSatir from '../components/YaziSatir.astro';
+import { tumYazilar } from '../lib/yazilar';
+import { portfoy } from '../data/portfoy';
+
+const yazilar = (await tumYazilar()).slice(0, 10);
+---
+<Base title="hburakalemdar.com">
+  <p class="giris">
+    Merhaba, ben Burak Halit Alemdar. Burada gezip gördüğüm yerleri ve üzerinde
+    çalıştığım teknik konuları yazıyorum.
+  </p>
+
+  <div class="bolum-baslik">
+    <h2>Son yazılar</h2>
+    <a href="/yazilar">Tüm yazılar →</a>
+  </div>
+
+  {
+    yazilar.length > 0 ? (
+      <ul class="yazi-liste">
+        {yazilar.map((yazi) => (
+          <YaziSatir yazi={yazi} />
+        ))}
+      </ul>
+    ) : (
+      <p>Henüz yazı yok.</p>
+    )
+  }
+
+  {
+    /* Portföy: dizi boşsa bu bölüm HİÇ render olmaz — başlık bile çıkmaz. */
+    portfoy.length > 0 && (
+      <section>
+        <div class="bolum-baslik">
+          <h2>Portföy</h2>
+        </div>
+        <ul class="portfoy">
+          {portfoy.map((p) => (
+            <li>
+              <div class="baslik">
+                {p.url ? (
+                  <a href={p.url}>{p.title}</a>
+                ) : (
+                  p.title
+                )}
+              </div>
+              <p class="aciklama">{p.description}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</Base>

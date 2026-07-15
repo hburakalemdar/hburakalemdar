@@ -51,3 +51,32 @@ Detaylı gereksinim `SPEC.md`'de.
   eklenecek, park kayıtları silinecek; mail (MX/SPF iCloud/DKIM) kayıtlarına
   dokunulmayacak — geri dönüşü zor, insan eliyle yapılmalı. IP'ler docs.github.com
   ile doğrulandı.
+
+## 2026-07-15 — İskele uygulaması (3. tur)
+
+- **Astro 5 + content layer (glob loader).** SPEC'teki `type:'content'` yerine
+  Astro 5 varsayılanı; `defineCollection({ loader: glob(...) })` ile
+  `src/content/yazilar/{klasor}/index.md` okunuyor. Şema `src/content.config.ts`
+  (Astro 5'te `src/content/config.ts` yerine kök `src/content.config.ts` da geçerli).
+- **`permalink` Zod regex `^[a-z0-9-]+$`.** SPEC ASCII/tire kuralını şema
+  seviyesinde zorlar; Türkçe karakterli permalink build'i patlatır.
+- **Permalink tekilliği kod ile zorlanıyor.** `getStaticPaths` sessizce ezmesin
+  diye `tumYazilar()` içinde Map ile çakışma taranıp açık hata fırlatılıyor (SPEC §9).
+- **Draft filtresi tek yerde (`src/lib/yazilar.ts`).** Tüm query'ler bu helper'dan
+  geçiyor; `import.meta.env.PROD` ile production'da draft çıkmıyor, dev'de görünüyor.
+- **Font: Source Serif 4, fontsource woff2 (latin + latin-ext), self-host.** Türkçe
+  glif kapsamı fonttools cmap kontrolüyle doğrulandı — regular/bold/italic birleşik
+  TAM (ğ Ğ ş Ş ı İ ç Ç ö Ö ü Ü). `ı` latin alt-kümesinde, `İ Ğğ Şş` latin-ext'te;
+  `@font-face` unicode-range ile ikisi de yükleniyor. Değişken font yerine 3 statik
+  ağırlık (400/400i/700) — sadece kullanılan ağırlıklar, daha küçük yük.
+- **Kod vurgusu: Astro dahili Shiki (varsayılan).** Ekstra entegrasyon/dependency
+  yok; `astro-code` çıktısı doğrulandı. Kod fontu sistem monospace (font yükü yok).
+- **E-posta obfüskasyonu: HTML entity + `set:html`.** Her karakter `&#code;`
+  entity'sine çevrilip `<Fragment set:html>` ile basılıyor; browser JS'siz parse
+  ediyor, naif bot düz `mailto:` bulamıyor (SPEC §3.3).
+- **`trailingSlash: 'ignore'`, RSS link'leri sonda `/`'li.** GitHub Pages dizin
+  index'iyle uyum; Astro varsayılan çıktı `/yazi/{permalink}/index.html`.
+- **Deploy: resmi GitHub Pages Actions (upload-pages-artifact + deploy-pages).**
+  `gh-pages` branch'i yerine artifact tabanlı resmi akış; `concurrency: pages`.
+- **`sharp` açık bağımlılık.** `astro:assets` build-time görsel dönüşümü için
+  gerekli; opsiyonel kapak görselleri webp'e çevrilsin diye eklendi.

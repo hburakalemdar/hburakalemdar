@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import YaziSatir from '../../components/YaziSatir.astro';
+import { kategoriYazilari } from '../../lib/yazilar';
+
+export function getStaticPaths() {
+  return [
+    { params: { kategori: 'gezi' } },
+    { params: { kategori: 'teknik' } },
+  ];
+}
+
+const { kategori } = Astro.params as { kategori: 'gezi' | 'teknik' };
+const yazilar = await kategoriYazilari(kategori);
+const basliklar = { gezi: 'Gezi yazıları', teknik: 'Teknik yazılar' };
+---
+<Base
+  title={basliklar[kategori]}
+  description={`${basliklar[kategori]} — yeni'den eskiye.`}
+>
+  <h1>{basliklar[kategori]}</h1>
+  {
+    yazilar.length > 0 ? (
+      <ul class="yazi-liste">
+        {yazilar.map((yazi) => (
+          <YaziSatir yazi={yazi} />
+        ))}
+      </ul>
+    ) : (
+      <p>Bu kategoride henüz yazı yok.</p>
+    )
+  }
+</Base>

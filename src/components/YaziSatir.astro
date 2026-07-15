@@ -1,0 +1,21 @@
+---
+import type { Yazi } from '../lib/yazilar';
+import { tarihTR, tarihISO } from '../lib/tarih';
+import KategoriEtiket from './KategoriEtiket.astro';
+
+interface Props {
+  yazi: Yazi;
+  /** Açıklamayı da göster (arşiv/ana sayfa listesinde) */
+  aciklama?: boolean;
+}
+const { yazi, aciklama = true } = Astro.props;
+const { title, date, category, description, permalink } = yazi.data;
+---
+<li>
+  <div class="yazi-satir">
+    <time datetime={tarihISO(date)}>{tarihTR(date)}</time>
+    <a class="baslik" href={`/yazi/${permalink}`}>{title}</a>
+    <KategoriEtiket kategori={category} />
+  </div>
+  {aciklama && <p class="aciklama">{description}</p>}
+</li>

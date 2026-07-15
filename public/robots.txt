@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hburakalemdar.com/sitemap-index.xml

@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import YaziSatir from '../components/YaziSatir.astro';
+import { tumYazilar } from '../lib/yazilar';
+
+const yazilar = await tumYazilar();
+---
+<Base
+  title="Yazılar"
+  description="Tüm yazılar — gezi ve teknik, yeni'den eskiye."
+>
+  <h1>Yazılar</h1>
+  {
+    yazilar.length > 0 ? (
+      <ul class="yazi-liste">
+        {yazilar.map((yazi) => (
+          <YaziSatir yazi={yazi} />
+        ))}
+      </ul>
+    ) : (
+      <p>Henüz yazı yok.</p>
+    )
+  }
+</Base>

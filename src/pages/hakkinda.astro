@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+
+// E-posta hafif obfüskasyon: her karakter HTML entity'sine çevrilir.
+// Browser entity'leri parse eder → JS'siz çalışır; naif bot'lar düz metni bulamaz.
+const eposta = 'halit@hburakalemdar.com';
+const entity = (s: string) =>
+  [...s].map((c) => `&#${c.codePointAt(0)};`).join('');
+const mailBaglanti = `<a href="mailto:${entity(eposta)}">${entity(eposta)}</a>`;
+---
+<Base
+  title="Hakkında"
+  description="Burak Halit Alemdar hakkında ve iletişim bilgileri."
+>
+  <h1>Hakkında</h1>
+  <p>
+    Merhaba, ben Burak Halit Alemdar. Bu site kişisel not defterim: gezip
+    gördüğüm yerleri ve üzerinde çalıştığım teknik konuları burada topluyorum.
+  </p>
+
+  <h2>İletişim</h2>
+  <ul>
+    <li>E-posta: <Fragment set:html={mailBaglanti} /></li>
+    <li>
+      GitHub:
+      <a href="https://github.com/hburakalemdar" rel="me">hburakalemdar</a>
+    </li>
+    <li>
+      LinkedIn:
+      <a
+        href="https://www.linkedin.com/in/burak-halit-alemdar-a59306297/"
+        rel="me">Burak Halit Alemdar</a
+      >
+    </li>
+  </ul>
+</Base>

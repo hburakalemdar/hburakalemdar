@@ -1,0 +1,43 @@
+---
+import { render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import KategoriEtiket from '../../components/KategoriEtiket.astro';
+import { tumYazilar } from '../../lib/yazilar';
+import { tarihTR, tarihISO } from '../../lib/tarih';
+
+export async function getStaticPaths() {
+  const yazilar = await tumYazilar();
+  return yazilar.map((yazi) => ({
+    params: { permalink: yazi.data.permalink },
+    props: { yazi },
+  }));
+}
+
+const { yazi } = Astro.props;
+const { title, date, category, description, cover } = yazi.data;
+const { Content } = await render(yazi);
+---
+<Base title={title} description={description} ogType="article">
+  <article>
+    <header class="yazi-ust">
+      <div class="ust-satir">
+        <time datetime={tarihISO(date)}>{tarihTR(date)}</time>
+        <KategoriEtiket kategori={category} />
+      </div>
+      <h1>{title}</h1>
+    </header>
+
+    {
+      cover && (
+        <div class="kapak">
+          <Image src={cover} alt={title} loading="eager" />
+        </div>
+      )
+    }
+
+    <div class="yazi-govde">
+      <Content />
+    </div>
+  </article>
+</Base>

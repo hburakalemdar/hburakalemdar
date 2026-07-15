@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Open Graph tipi: sayfa "website", yazı "article" */
+  ogType?: 'website' | 'article';
+}
+
+const { title, description, ogType = 'website' } = Astro.props;
+
+const siteAdi = 'hburakalemdar.com';
+const tamBaslik = title === siteAdi ? title : `${title} — ${siteAdi}`;
+const aciklama =
+  description ?? 'Burak Halit Alemdar — gezi ve teknik yazılar, küçük bir portföy.';
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{tamBaslik}</title>
+    <meta name="description" content={aciklama} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph: paylaşımda düzgün görünsün (süs değil) -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={tamBaslik} />
+    <meta property="og:description" content={aciklama} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={siteAdi} />
+    <meta property="og:locale" content="tr_TR" />
+
+    <!-- RSS otomatik keşif (her sayfada) -->
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={siteAdi}
+      href="/rss.xml"
+    />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Kritik gövde fontunu öne al -->
+    <link
+      rel="preload"
+      href="/fonts/source-serif-4-latin-400-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </head>
+  <body>
+    <div class="kabuk">
+      <header class="site-ust">
+        <a class="marka" href="/">Burak Halit Alemdar</a>
+        <nav>
+          <a href="/yazilar">Yazılar</a>
+          <a href="/kategori/gezi">Gezi</a>
+          <a href="/kategori/teknik">Teknik</a>
+          <a href="/hakkinda">Hakkında</a>
+        </nav>
+      </header>
+
+      <main>
+        <slot />
+      </main>
+
+      <footer class="site-alt">
+        <span>© {new Date().getFullYear()} Burak Halit Alemdar</span>
+        <span>
+          <a href="/rss.xml">RSS</a> · <a href="/hakkinda">İletişim</a>
+        </span>
+      </footer>
+    </div>
+  </body>
+</html>
