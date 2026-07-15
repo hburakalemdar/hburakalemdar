@@ -21,9 +21,10 @@ const { Content } = await render(yazi);
 <Base title={title} description={description} ogType="article">
   <article>
     <header class="yazi-ust">
-      <div class="ust-satir">
+      <div class="meta">
         <time datetime={tarihISO(date)}>{tarihTR(date)}</time>
-        <KategoriEtiket kategori={category} />
+        <span class="ayrac" aria-hidden="true">·</span>
+        <KategoriEtiket kategori={category} link={true} />
       </div>
       <h1>{title}</h1>
     </header>

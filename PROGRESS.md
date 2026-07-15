@@ -49,6 +49,11 @@ Son build: 8 sayfa + rss.xml + sitemap, ~0.7 sn, hatasız.
       = hburakalemdar.com, `public/robots.txt` + sitemap linki.
 - [x] Doğrulama: build çıktısı, RSS geçerli XML (tr-TR), kategori filtreleri izole,
       portföy boş→gizli, sitemap draft'sız.
+- [x] **Tasarım turu (kontrast + hiyerarşi):** tek accent oxblood `#6e1423`
+      (yalnız link+hover); meta mono/soluk/küçük harf; kategori kutusuz `·` ayraçlı;
+      başlık hiyerarşisi (yazı başlığı büyük/koyu, bölüm etiketi küçük mono soluk);
+      imza öğe = liste satırında hover'da accent alt çizgi; 8px dikey ritim ölçeği.
+      Tarayıcıda ekran görüntüsüyle doğrulandı. Detay → DECISIONS.md (4. tur).
 
 ## Sırada / açık
 

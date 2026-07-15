@@ -80,3 +80,38 @@ Detaylı gereksinim `SPEC.md`'de.
   `gh-pages` branch'i yerine artifact tabanlı resmi akış; `concurrency: pages`.
 - **`sharp` açık bağımlılık.** `astro:assets` build-time görsel dönüşümü için
   gerekli; opsiyonel kapak görselleri webp'e çevrilsin diye eklendi.
+
+## 2026-07-15 — Tasarım turu: kontrast + hiyerarşi (4. tur)
+
+Sorun: "varsayılan minimal" — az öğeli ama karaktersiz, göz nereye bakacağını
+bilmiyordu. Çözüm: meta'yı geri çek, başlığı öne çıkar, tek accent, tek hover.
+
+- **Tek accent renk: oxblood `#6e1423`.** Koyu, resmi (terracotta değil).
+  SADECE `<a>` metin rengi ve hover'da kullanılır; başka hiçbir dekoratif yerde
+  yok. `--accent` değişkeni.
+- **Renk paleti:** metin `#1a1a1a` (başlık+gövde), ikincil `#6f6f6b` (açıklama),
+  meta `#9a978f` (mono tarih·kategori, soluk gri), çizgi `#e7e6e1`,
+  zemin `#fdfdfc`, kod zemini `#f3f2ee`.
+- **Meta = mono, küçük, soluk, küçük harf.** Tarih ve kategori `--mono` yığını,
+  `0.8rem`, `#9a978f`, `letter-spacing 0.02em`, `text-transform: lowercase`.
+  Gövde serifiyle yarışmıyor. Ayraç `·` çizgi renginde (en soluk).
+- **Kategori kutusuz.** Eski kenarlıklı `.etiket` kutusu kaldırıldı; artık düz
+  mono metin (`.kat`), tarihle aynı satırda `·` ayraçla. Kutu minimal düzende en
+  çok göze batan öğeydi.
+- **Başlık hiyerarşisi tersine çevrildi.** Yazı başlıkları serif, büyük, koyu,
+  bold (liste `1.2rem/700`, tekil `h1 2.1rem/700`). Bölüm etiketleri ("Son
+  yazılar" vb.) küçüldü: mono, `0.78rem`, `letter-spacing 0.12em`, uppercase,
+  meta grisi — artık başlık değil "etiket" gibi okunuyor.
+- **Tipografi ölçeği:** kök `18px`; h1 `2.1rem`, h2 (gövde) `1.45rem`, h3
+  `1.2rem`, liste başlığı `1.2rem`, giriş `1.15rem`, gövde `1rem`, açıklama
+  `0.98rem`, meta `0.8rem`, bölüm etiketi `0.78rem`, nav/footer `0.75–0.78rem`
+  (mono). Gövde satır yüksekliği `1.65`, başlıklar `1.2`.
+- **İmza öğe: liste satırı = solda mono meta (10rem kolon), sağda başlık.**
+  Grid `10rem 1fr`. Tek gösterişli hamle: hover'da başlığın altına accent renkli
+  `1px` çizgi (`background-size 0→100%`, `0.18s`). Başka hover/animasyon yok.
+  Dar ekranda (`<34rem`) meta başlığın üstüne, tek kolona iner.
+- **Dikey ritim: 8px ölçeği.** Tek boşluk skalası `--sp-1..8` = 8/16/24/32/48/64px;
+  tüm bölüm araları, padding ve margin'ler bu değişkenlerden. Rastgele rem
+  değerleri kaldırıldı.
+- **Nav + footer mono, küçük harf, soluk; hover'da accent.** Site kromu gövdeden
+  ayrışsın ve sessiz kalsın diye mono; tek renkli vurgu hover'da beliriyor.

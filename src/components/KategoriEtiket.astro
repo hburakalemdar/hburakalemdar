@@ -1,16 +1,15 @@
 ---
 interface Props {
   kategori: 'gezi' | 'teknik';
-  /** true ise filtre sayfasına link olur, değilse düz etiket */
+  /** true ise filtre sayfasına link olur; listede sessiz düz metin (false) */
   link?: boolean;
 }
-const { kategori, link = true } = Astro.props;
-const etiket = kategori; // "gezi" | "teknik"
+const { kategori, link = false } = Astro.props;
 ---
 {
   link ? (
-    <a class="etiket" href={`/kategori/${kategori}`}>{etiket}</a>
+    <a class="kat" href={`/kategori/${kategori}`}>{kategori}</a>
   ) : (
-    <span class="etiket">{etiket}</span>
+    <span class="kat">{kategori}</span>
   )
 }

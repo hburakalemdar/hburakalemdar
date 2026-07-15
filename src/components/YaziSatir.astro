@@ -11,11 +11,14 @@ interface Props {
 const { yazi, aciklama = true } = Astro.props;
 const { title, date, category, description, permalink } = yazi.data;
 ---
-<li>
-  <div class="yazi-satir">
+<li class="yazi-satir">
+  <div class="meta">
     <time datetime={tarihISO(date)}>{tarihTR(date)}</time>
-    <a class="baslik" href={`/yazi/${permalink}`}>{title}</a>
+    <span class="ayrac" aria-hidden="true">·</span>
     <KategoriEtiket kategori={category} />
   </div>
-  {aciklama && <p class="aciklama">{description}</p>}
+  <div class="icerik">
+    <a class="baslik" href={`/yazi/${permalink}`}>{title}</a>
+    {aciklama && <p class="aciklama">{description}</p>}
+  </div>
 </li>
