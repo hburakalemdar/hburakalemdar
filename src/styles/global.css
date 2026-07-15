@@ -77,9 +77,9 @@
   --accent: #6e1423;
 
   --olcek: 1.6; /* gövde satır yüksekliği */
-  /* Gövde ölçüsü: ~62-66 karakter (editoryal standart). Her yerde aynı eksen. */
-  --measure: 34rem;
-  --genislik: var(--measure);
+  /* İki ayrı ölçü: makale gövdesi okuma için dar, liste sayfaları geniş nefes alsın */
+  --measure-read: 65ch; /* SADECE tekil yazı gövdesi — uzun okuma */
+  --measure-wide: 1100px; /* liste sayfaları (/, /yazilar, /kategori/*) */
 
   /* Dikey ritim: 8px katları (tek boşluk ölçeği) */
   --sp-1: 8px;
@@ -114,9 +114,10 @@ body {
 }
 
 .kabuk {
-  max-width: var(--genislik);
+  max-width: var(--measure-wide);
   margin: 0 auto;
-  padding: var(--sp-8) var(--sp-3) var(--sp-8);
+  padding-block: var(--sp-8);
+  padding-inline: 1.5rem; /* mobilde metin kenara yapışmasın */
 }
 
 /* ---- Tipografi hiyerarşisi (Major Third, 1.25 — gövde ankor 18px) ---- */
@@ -322,7 +323,6 @@ a.kat:hover {
   font-size: 1rem;
   line-height: var(--olcek);
   margin: 0 0 var(--sp-2);
-  max-width: var(--measure);
 }
 
 .yazi-liste {
@@ -362,7 +362,6 @@ a.kat:hover {
   font-size: 1rem; /* 18px, soluk */
   line-height: 1.5;
   margin: var(--sp-1) 0 0;
-  max-width: var(--measure);
 }
 
 /* ---- Tekil yazı ---- */
@@ -377,7 +376,7 @@ a.kat:hover {
 }
 .yazi-govde {
   font-size: 1rem; /* 18px, gövdeyle aynı */
-  max-width: var(--measure);
+  max-width: var(--measure-read); /* 65ch — sadece burada okuma kısıtı */
 }
 .yazi-govde figure {
   margin: var(--sp-3) 0;
@@ -421,7 +420,7 @@ a.kat:hover {
 
 @media (max-width: 34rem) {
   .kabuk {
-    padding: var(--sp-6) var(--sp-2) var(--sp-6);
+    padding-block: var(--sp-6); /* padding-inline: 1.5rem tabandan korunur */
   }
   h1 {
     font-size: 1.95rem;

@@ -144,3 +144,25 @@ Sorun: gövde çok büyüktü (bio sayfanın en büyük öğesiydi), başlık/g�
   `text-decoration-color: var(--accent)` kullanıldı; animasyon kaldırıldı.
 - **Dikey ritim tek kaynak `--sp-1..8` (8px katları).** Tüm başlık/blok/bölüm
   boşlukları bu ölçekten; rastgele rem değeri kalmadı.
+
+## 2026-07-15 — Ölçü: iki ayrı değer (6. tur)
+
+Önceki turdaki tek `--measure` (34rem her yerde) hataydı: liste sayfalarını
+gereksiz daraltıyordu. Liste sayfalarında düzyazı OKUNMUYOR, TARANIYOR — okuma
+ölçüsü kısıtı orada geçersiz.
+
+- **İki ayrı ölçü.** `--measure-read: 65ch` yalnızca tekil yazı gövdesinde
+  (`.yazi-govde` — uzun okuma var). `--measure-wide: 1100px` liste sayfalarının
+  kabuk genişliği (`/`, `/yazilar`, `/kategori/*`). Ölçüldü: kabuk 1100px,
+  makale gövdesi 619px (~65ch).
+- **Liste içeriğinde okuma kısıtı yok.** Bio (`.giris`) ve özet (`.aciklama`)
+  `max-width` kaldırıldı; geniş kabuk içinde nefes alıyorlar. Sayfa taranıyor,
+  okunmuyor.
+- **Kutu iç boşluğu `padding-inline: 1.5rem`.** Mobilde metin kenara yapışmasın;
+  mobil media query yalnız `padding-block`'u küçültür, inline 1.5rem korunur.
+- **375px doğrulama.** Ortam pencereyi min 500px'e kırpıyor (gerçek 375 viewport
+  alınamadı). Gerçek 500px'te yatay scroll yok (`docScrollW===winW`); DOM'da
+  375px'e zorlanan testte en kötü durum (kod bloklu makale) gövde 375px'te
+  sınırlı, yalnız `pre` kendi içinde kayıyor (`overflow-x:auto`), sayfa taşması
+  yok. En dar içerik öğeleri (meta nowrap ~200px, en uzun kelime ~150px) 327px
+  içerik kutusunun altında.
