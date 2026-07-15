@@ -79,7 +79,8 @@
   --olcek: 1.6; /* gövde satır yüksekliği */
   /* İki ayrı ölçü: makale gövdesi okuma için dar, liste sayfaları geniş nefes alsın */
   --measure-read: 65ch; /* SADECE tekil yazı gövdesi — uzun okuma */
-  --measure-wide: 880px; /* liste sayfaları (/, /yazilar, /kategori/*) — ferah ama aşırı geniş değil */
+  --measure-wide: 1100px; /* kabuk = header/nav/footer ekseni (daralmaz) */
+  --measure-content: 880px; /* liste sayfası içerik sütunu (main) — biraz daha dar */
 
   /* Dikey ritim: 8px katları (tek boşluk ölçeği) */
   --sp-1: 8px;
@@ -118,6 +119,16 @@ body {
   margin: 0 auto;
   padding-block: var(--sp-8);
   padding-inline: 1.5rem; /* mobilde metin kenara yapışmasın */
+}
+
+/* Liste sayfası içerik sütunu biraz daha dar; header/nav/footer (kabuk) geniş kalır.
+   Brand'la aynı sol kenardan başlar (sola hizalı). */
+main {
+  max-width: var(--measure-content);
+}
+/* Tekil yazı: main tam kabuk genişliğinde — .yazi kendi içinde 65ch ortalanır (kaymasın) */
+main:has(> .yazi) {
+  max-width: none;
 }
 
 /* ---- Tipografi hiyerarşisi (Major Third, 1.25 — gövde ankor 18px) ---- */

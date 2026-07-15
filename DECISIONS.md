@@ -154,8 +154,13 @@ gereksiz daraltıyordu. Liste sayfalarında düzyazı OKUNMUYOR, TARANIYOR — o
 - **İki ayrı ölçü.** `--measure-read: 65ch` yalnızca tekil yazı gövdesinde
   (`.yazi-govde` — uzun okuma var). `--measure-wide` liste sayfalarının kabuk
   genişliği (`/`, `/yazilar`, `/kategori/*`). Ölçüldü: makale gövdesi 619px (~65ch).
-  (9. tur: `--measure-wide` 1100px → **880px** düşürüldü; sütun biraz daraldı ama
-  hâlâ ferah — kullanıcı geniş buldu.)
+  (9. tur: içerik sütunu geniş bulundu → **sadece `main` içeriği 880px'e**
+  daraltıldı (`--measure-content`). `--measure-wide` (kabuk = header/nav/footer)
+  **1100px'te kaldı** — kullanıcı yalnız `/` içerik sütununu istedi, header/nav
+  daralmasın dedi. `main { max-width: 880px }` brand ile aynı sol kenardan (sola
+  hizalı); `main:has(> .yazi)` ile tekil yazı hariç (o tam kabukta 65ch ortalı).
+  Ölçüldü: kabuk 1100, header 1046, main 880 sol kenarı brand ile aynı (341);
+  makale: main 1046, .yazi 619, sol=sağ boşluk 241.)
 - **Liste içeriğinde okuma kısıtı yok.** Bio (`.giris`) ve özet (`.aciklama`)
   `max-width` kaldırıldı; geniş kabuk içinde nefes alıyorlar. Sayfa taranıyor,
   okunmuyor.
