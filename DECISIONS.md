@@ -157,8 +157,7 @@ gereksiz daraltıyordu. Liste sayfalarında düzyazı OKUNMUYOR, TARANIYOR — o
   (9. tur: içerik sütunu geniş bulundu → **sadece `main` içeriği 880px'e**
   daraltıldı (`--measure-content`). `--measure-wide` (kabuk = header/nav/footer)
   **1100px'te kaldı** — kullanıcı yalnız `/` içerik sütununu istedi, header/nav
-  daralmasın dedi. `main { max-width: 880px }` brand ile aynı sol kenardan (sola
-  hizalı); `main:has(> .yazi)` ile tekil yazı hariç (o tam kabukta 65ch ortalı).
+  daralmasın dedi. `main { max-width: 880px }` geniş kabuk içinde ORTALI (margin-inline:auto); `main:has(> .yazi)` ile tekil yazı hariç (o tam kabukta 65ch ortalı).
   Ölçüldü: kabuk 1100, header 1046, main 880 sol kenarı brand ile aynı (341);
   makale: main 1046, .yazi 619, sol=sağ boşluk 241.)
 - **Liste içeriğinde okuma kısıtı yok.** Bio (`.giris`) ve özet (`.aciklama`)

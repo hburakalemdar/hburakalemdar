@@ -122,9 +122,10 @@ body {
 }
 
 /* Liste sayfası içerik sütunu biraz daha dar; header/nav/footer (kabuk) geniş kalır.
-   Brand'la aynı sol kenardan başlar (sola hizalı). */
+   Sayfada ortalı (margin-inline: auto) — sola yatık durmasın. */
 main {
   max-width: var(--measure-content);
+  margin-inline: auto;
 }
 /* Tekil yazı: main tam kabuk genişliğinde — .yazi kendi içinde 65ch ortalanır (kaymasın) */
 main:has(> .yazi) {
