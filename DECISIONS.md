@@ -115,3 +115,32 @@ bilmiyordu. Çözüm: meta'yı geri çek, başlığı öne çıkar, tek accent, 
   değerleri kaldırıldı.
 - **Nav + footer mono, küçük harf, soluk; hover'da accent.** Site kromu gövdeden
   ayrışsın ve sessiz kalsın diye mono; tek renkli vurgu hover'da beliriyor.
+
+## 2026-07-15 — Editoryal ölçek + ızgara (5. tur)
+
+Sorun: gövde çok büyüktü (bio sayfanın en büyük öğesiydi), başlık/gövde kontrastı
+~1.2:1 kalıyordu; liste iki sütun (tarih|başlık) olduğu için sol kenar tırtıklıydı.
+
+- **Modüler ölçek: Major Third (1.25), gövde ankor 18px.** Kontrast 18→28 (liste
+  başlığı ~1.55:1) ve 18→42 (tekil başlık ~2.3:1). Ölçek:
+  - gövde `18px` (1rem), satır yüksekliği `1.6`
+  - meta (tarih·kategori) `14px` mono — gövdeden 4px küçük
+  - bölüm etiketi ("SON YAZILAR") `13px` mono soluk
+  - liste yazı başlığı `1.55rem` (~28px), `line-height 1.25`
+  - tekil yazı başlığı `h1 2.35rem` (~42px), `line-height 1.12`
+  - gövde içi `h2 1.55rem` (~28px), `h3 1.25rem` (~22px)
+  - **bio gövdeyle AYNI (18px)** — artık sayfanın en büyük öğesi değil (önceki
+    tur `1.15rem`'di, yanlıştı).
+- **Tek hizalama ekseni (ızgara yok).** Liste iki sütunlu grid'den (`10rem 1fr`)
+  tek eksene alındı: her yazı bloğu `meta → başlık → özet` sırasıyla aynı sol
+  kenardan başlar. İki sütun tırtıklı kenar üretiyordu; kaldırıldı.
+- **Tek ölçü `--measure: 34rem` (~62-66 karakter).** Bio, özet ve gövde metni
+  aynı `--measure`'a bağlı; kabuk genişliği de buradan. Tutarsız satır uzunlukları
+  (geniş bio / dar özet) giderildi. Editoryal 60-66 karakter standardı.
+- **Başlık biçimi: 3 araç (boyut + ağırlık + renk) + `letter-spacing -0.01em`.**
+  Kitap-sıkılığı; gazete sıkılığı (daha negatif) değil. Fazla araç yok.
+- **İmza hover: `text-decoration` accent alt çizgi (gradient animasyon yerine).**
+  Başlık artık büyük ve çok satıra sarabildiği için, çok satırda da doğru çizilen
+  `text-decoration-color: var(--accent)` kullanıldı; animasyon kaldırıldı.
+- **Dikey ritim tek kaynak `--sp-1..8` (8px katları).** Tüm başlık/blok/bölüm
+  boşlukları bu ölçekten; rastgele rem değeri kalmadı.
