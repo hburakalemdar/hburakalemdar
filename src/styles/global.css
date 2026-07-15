@@ -293,7 +293,7 @@ a.kat:hover {
 }
 .site-ust a.marka {
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.5rem;
   color: var(--renk-metin);
   text-decoration: none;
   transition: color 0.15s ease;
