@@ -245,8 +245,11 @@ pre {
 a.kat {
   text-decoration: none;
 }
+/* Hover: nav ile aynı — renk değişmez (meta grisi), tek geri bildirim alt çizgi */
 a.kat:hover {
-  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
 }
 
 /* ---- Bölüm etiketi (ör. "Son yazılar"): mono, küçük, soluk, harf aralıklı ---- */
