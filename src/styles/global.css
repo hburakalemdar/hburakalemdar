@@ -261,8 +261,11 @@ a.kat:hover {
   color: var(--renk-meta);
   text-decoration: none;
 }
+/* Hover: nav ile aynı — renk değişmez, tek geri bildirim alt çizgi */
 .bolum-baslik a:hover {
-  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
 }
 
 /* ---- Site üst / nav ---- */

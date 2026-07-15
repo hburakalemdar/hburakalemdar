@@ -189,5 +189,7 @@ Site kromu (marka, nav, footer) accent kullanmaz.
 - **`a:focus-visible` outline eklendi (a11y).** `2px solid var(--renk-metin)`,
   `outline-offset: 3px` — hover'dan bağımsız; klavye focus göstergesi her linkte
   korunur, hover renginin kaldırılması bunu silmez.
-- **Not:** `.bolum-baslik a` ("Tüm yazılar →") hover'ı hâlâ accent — kullanıcının
-  saydığı 3 kalem (marka/nav/footer) dışında, bilinçli olarak dokunulmadı.
+- **`.bolum-baslik a` ("Tüm yazılar →") de nav ile aynı yapıldı.** Kullanıcı
+  istedi: renk sabit (meta grisi), tek geri bildirim alt çizgi (offset 0.3em).
+  Doğrulandı: hover `rgb(154,151,143)` + underline. Böylece accent tüm site
+  kromundan (marka/nav/footer/bölüm linki) tamamen kalktı; yalnız prose'da kaldı.
