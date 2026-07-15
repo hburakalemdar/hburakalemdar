@@ -70,29 +70,35 @@ kategori sadece bir etiket/filtredir.
 | `date`        | date                     | ✓       | Yayın tarihi, sıralama buna göre (yeni → eski)  |
 | `category`    | enum: `gezi` \| `teknik` | ✓       | **Şema başka değer kabul etmez** (build hatası) |
 | `description` | string                   | ✓       | Liste kartında ve `<meta description>`'da       |
-| `slug`        | string                   | ✓       | **Elle yazılır**, ASCII, tire-ayraç (§4)        |
+| `permalink`   | string                   | ✓       | **Elle yazılır**, ASCII, tire-ayraç (§4). URL'i belirler |
 | `cover`       | image                    | —       | Opsiyonel kapak görseli                         |
 | `draft`       | boolean (varsayılan `false`) | —   | `true` ise **build'e girmez** (§3.4)            |
 
 - `tags` (serbest etiket) **YOK**. Taksonomi sadece `category`.
-- `slug` front-matter'da zorunlu ve elle verilir; klasör adından türetilmez.
-  (Klasör adı ile slug tutarlı tutulması önerilir ama şart değil.)
+- **URL alanı `permalink`, `slug` DEĞİL.** Astro'da `slug` eski `type:'content'`
+  API'sinde rezerve (şemaya eklenince build patlar); Astro 5 content layer'da
+  `id` rezerve. Sıfır çakışma için özel alan adı `permalink` kullanılır ve route
+  `/yazi/[permalink].astro` bundan beslenir. Gerekçe → `DECISIONS.md`.
+- `permalink` front-matter'da zorunlu ve elle verilir; klasör adından
+  türetilmez. (Klasör adı ile tutarlı olması önerilir ama şart değil.)
 
 ### 3.2 Portföy
 
-- Koleksiyon: `src/content/portfoy/` (her öğe bir `.md`).
-- Şema:
+- **Ayrı sayfa YOK, ayrı content collection YOK.** Portföy, **ana sayfanın
+  altında küçük bir bölüm**dür (§5). `/portfoy` route'u yoktur.
+- Tek data dosyasından beslenir: **`src/data/portfoy.ts`** (tip güvenli dizi;
+  gerekirse `.json`). Markdown/koleksiyon değil — her öğe basit bir obje.
+- Öğe şekli:
 
-| Alan          | Tip    | Zorunlu | Not                                  |
-|---------------|--------|---------|--------------------------------------|
-| `title`       | string | ✓       | Proje adı                            |
-| `description` | string | ✓       | Kısa açıklama                        |
-| `url`         | string | —       | Repo veya canlı link (opsiyonel)     |
-| `order`       | number | —       | Manuel sıralama (opsiyonel)          |
+| Alan          | Tip    | Zorunlu | Not                              |
+|---------------|--------|---------|----------------------------------|
+| `title`       | string | ✓       | Proje adı                        |
+| `description` | string | ✓       | Kısa açıklama                    |
+| `url`         | string | —       | Repo veya canlı link (opsiyonel) |
 
 - **Yıl ve teknoloji etiketi YOK.**
-- Gerçek proje yoksa bölüm **boş başlar** — placeholder/lorem koyma.
-  Boşken sayfa "Yakında" yerine sadece başlık + boş liste gösterir.
+- Dizi **boşsa portföy bölümü hiç render OLMAZ** — başlık bile çıkmaz.
+  Placeholder/lorem/"Yakında" yok. Gerçek proje geldikçe dosyaya eklenir.
 
 ### 3.3 Hakkında / İletişim
 
@@ -115,26 +121,42 @@ bir yer tutucu-olmayan cümle yaz ve `DECISIONS.md`'ye not düş.
 - Geliştirmede (`npm run dev`) görünür olabilir; production build'de filtrelenir.
   Content query'lerinde `import.meta.env.PROD` ile filtre uygulanır.
 
+### 3.5 Örnek (yapı testi) yazıları
+
+§10 placeholder/lorem'i yasaklar; §12 ise yapıyı doğrulamak için içerik ister.
+Çözüm: **`ornek-` prefix'li geçici yapı-testi yazıları.** Bunlar "gerçek içerik"
+taklidi yapmaz.
+
+- Slug/permalink `ornek-` ile başlar: `ornek-gezi`, `ornek-teknik`. Biri
+  `category: gezi`, biri `category: teknik` — tek akışı ve filtreyi doğrular.
+- Metin **açıkça "bu bir yapı testidir"** der. **Uydurma gezi anısı / sahte
+  teknik içerik YAZILMAZ**; metin ne olduğunu dürüstçe söyler (ör. "Bu yazı
+  sitenin yazı akışını, kategori etiketini ve tipografiyi doğrulamak için
+  geçicidir; gerçek içerik gelince silinecektir.").
+- Bunlar **geçicidir**: ilk gerçek gezi ve teknik yazı eklendiğinde silinir.
+  Silinmeleri gereken TODO olarak `PROGRESS.md`'de izlenir.
+- `draft` değildir (build'e girer, kabul kriterleri bunlarla doğrulanır).
+
 ---
 
-## 4. URL yapısı ve slug'lar
+## 4. URL yapısı ve permalink'ler
 
 | Yol                  | İçerik                                              |
 |----------------------|-----------------------------------------------------|
 | `/`                  | Ana sayfa: kısa bio + son yazılar (§5)              |
-| `/yazi/{slug}`       | Tekil yazı (gezi ve teknik ortak namespace)         |
+| `/yazi/{permalink}`  | Tekil yazı (gezi ve teknik ortak namespace)         |
 | `/yazilar`           | Tüm yazılar arşivi (yeni → eski, kategori etiketli) |
 | `/kategori/gezi`     | Sadece gezi yazıları (filtre)                       |
 | `/kategori/teknik`   | Sadece teknik yazıları (filtre)                     |
-| `/portfoy`           | Portföy listesi                                     |
 | `/hakkinda`          | Hakkında / iletişim                                 |
 | `/rss.xml`           | Tek RSS beslemesi (§6)                              |
 | `/404`               | Türkçe 404 sayfası                                  |
 
-**Slug kuralları:**
+**Permalink (slug) kuralları:**
 
 - Sadece ASCII: küçük harf, rakam, tire (`a-z0-9-`). Türkçe karakter **yok**.
-- Elle yazılır (front-matter `slug`). Ör: `Kış Gezisi` → `slug: kis-gezisi`.
+- Elle yazılır (front-matter `permalink`). Ör: `Kış Gezisi` → `permalink: kis-gezisi`.
+- Alan adı `slug` DEĞİL `permalink` (Astro rezerve alan çakışması — §3.1).
 - Kategori URL'de yer **almaz** (tek akış felsefesi); sadece filtre sayfası var.
 
 ---
@@ -144,6 +166,8 @@ bir yer tutucu-olmayan cümle yaz ve `DECISIONS.md`'ye not düş.
 - Üstte **kısa bio** (1-2 cümle, kim olduğu).
 - Altında **son yazılar** listesi (karışık, her satırda kategori etiketi:
   `[gezi]` / `[teknik]`). Son ~10 yazı; altında `/yazilar`'a "Tüm yazılar" linki.
+- En altta **küçük portföy bölümü** (§3.2): `src/data/portfoy.ts`'ten beslenir.
+  Dizi boşsa bu bölüm **hiç render olmaz**. Ayrı sayfa yok.
 - Landing/kart ızgarası YOK (ayrı blog hissi vermemek için).
 
 ---
@@ -197,8 +221,9 @@ Detay sonra beraber oturtulacak — şimdilik iskele; güzelleştirmeye takılma
 
 - **Kategori enum ihlali:** `category` yalnız `gezi`/`teknik`; şema başka değere
   build'i patlatır (sessizce geçmez).
-- **Slug çakışması:** iki yazı aynı slug'ı alırsa build hata versin (Astro
-  content collection zaten uyarır; ayrıca gözden geçir).
+- **Permalink çakışması:** iki yazı aynı `permalink`'i alırsa `getStaticPaths`
+  aynı yolu iki kez üretir → build hata versin. Build sırasında tekillik
+  kontrolü yap (aynı permalink varsa açık hata fırlat).
 - **Görsel yok:** `cover` opsiyonel; yoksa kart/başlık görselsiz render olur,
   boş `<img>` bırakılmaz.
 - **Boş bölüm:** portföy/yazı yoksa liste boş render; "Yakında"/placeholder yok.
@@ -218,7 +243,10 @@ Detay sonra beraber oturtulacak — şimdilik iskele; güzelleştirmeye takılma
 CLAUDE.md "Yapma" listesi bağlayıcı:
 
 - Dark mode, yorum sistemi, newsletter, paylaş butonu.
-- Placeholder / lorem ipsum. Gerçek içerik yoksa boş bırak.
+- Placeholder / lorem ipsum / uydurma "gerçek gibi" içerik. Gerçek içerik yoksa
+  boş bırak. **Tek istisna:** §3.5'teki `ornek-` prefix'li, kendini açıkça yapı
+  testi ilan eden geçici yazılar — bunlar gerçek içerik taklidi yapmadığı için
+  serbesttir ve ilk gerçek yazıda silinir.
 - Analytics / izleme / dış font çağrısı.
 - Panel / CMS / veritabanı. Yazı = bir dosya yaz + push.
 - Serbest etiket (tags) taksonomisi, çoklu dil, kategori RSS'leri, sayfalama
@@ -235,20 +263,19 @@ CLAUDE.md "Yapma" listesi bağlayıcı:
 ├── package.json
 ├── src/
 │   ├── content/
-│   │   ├── config.ts          # yazilar + portfoy şemaları (Zod)
-│   │   ├── yazilar/
-│   │   │   └── {slug}/index.md (+ görseller)
-│   │   └── portfoy/
-│   │       └── {proje}.md
+│   │   ├── config.ts          # sadece yazilar koleksiyonu şeması (Zod)
+│   │   └── yazilar/
+│   │       └── {klasor}/index.md (+ görseller)  # URL permalink alanından
+│   ├── data/
+│   │   └── portfoy.ts         # portföy öğeleri (koleksiyon DEĞİL, tek dosya)
 │   ├── layouts/
 │   │   └── Base.astro          # <html lang=tr>, head, RSS link, font
 │   ├── components/             # YaziKart, KategoriEtiket vb.
 │   ├── pages/
 │   │   ├── index.astro         # bio + son yazılar
 │   │   ├── yazilar.astro       # tüm arşiv
-│   │   ├── yazi/[slug].astro
+│   │   ├── yazi/[permalink].astro
 │   │   ├── kategori/[kategori].astro
-│   │   ├── portfoy.astro
 │   │   ├── hakkinda.astro
 │   │   ├── rss.xml.ts
 │   │   └── 404.astro
@@ -264,10 +291,11 @@ CLAUDE.md "Yapma" listesi bağlayıcı:
 ## 12. Bitince ne "bitti" sayılır (kabul kriterleri)
 
 1. `npm run build` hatasız geçer (çıktı gösterilir).
-2. `/`, `/yazilar`, `/yazi/{slug}`, `/kategori/gezi`, `/kategori/teknik`,
-   `/portfoy`, `/hakkinda`, `/rss.xml`, `/404` render olur.
-3. En az bir gerçek gezi ve bir gerçek teknik yazı ile akış görünür (lorem yok;
-   gerçek içerik yoksa yapı doğrulaması için en az iskelet + gerçek kısa metin).
+2. `/`, `/yazilar`, `/yazi/{permalink}`, `/kategori/gezi`, `/kategori/teknik`,
+   `/hakkinda`, `/rss.xml`, `/404` render olur. (Portföy ayrı sayfa değil —
+   ana sayfa bölümü, §3.2.)
+3. En az bir örnek gezi + bir örnek teknik yazı (§3.5, `ornek-` prefix'li) ile
+   akış, kategori filtresi ve tekil sayfa doğrulanır. Bunlar geçici yapı testi.
 4. Türkçe karakterler seçilen fontta eksiksiz görünür (görsel doğrulama).
 5. RSS geçerli XML; `<head>`'de keşif linki var.
 6. GitHub Actions ile Pages deploy pipeline'ı kurulu; CNAME yerinde.
