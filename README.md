@@ -10,7 +10,6 @@ Lately I've also been learning iOS development with SwiftUI.
 
 - **Backend:** Go (Echo, pgx), PostgreSQL
 - **Frontend:** Vue 3
-- **Mobile:** Swift, SwiftUI, SwiftData
 - **Other:** Python, Git
 
 **Projects**
