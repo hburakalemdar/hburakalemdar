@@ -4,13 +4,16 @@ Final-year Computer Engineering student at Osmaniye Korkut Ata University (gradu
 I build backend services in Go and have done two backend internships at R&D companies in a technopark.
 On the side, I also build iOS apps with SwiftUI.
 
-**Interested in:** backend development and distributed systems.
+**Interested in:** backend development, distributed systems, and cloud-native infrastructure (Docker, Kubernetes).
 
 **Tools I use**
 
 - **Backend:** Go (Echo, pgx), PostgreSQL
-- **Frontend:** Vue 3
-- **Other:** Python, Git
+- **Frontend:** Vue 3 (Pinia, Vuetify), React, TypeScript
+- **Testing & CI:** Go testing, GitHub Actions
+- **AI:** LLM integration with the Claude API
+- **Python:** embeddings and clustering (sentence-transformers, scikit-learn), web scraping (Playwright)
+- **Other:** Git
 
 **Projects**
 
