@@ -2,7 +2,7 @@
 
 Final-year Computer Engineering student at Osmaniye Korkut Ata University (graduating June 2027).
 I build backend services in Go and have done two backend internships at R&D companies in a technopark.
-Lately I've also been learning iOS development with SwiftUI.
+On the side, I also build iOS apps with SwiftUI.
 
 **Interested in:** backend development and distributed systems.
 
