@@ -17,6 +17,6 @@ On the side, I also build iOS apps with SwiftUI.
 
 **Projects**
 
-- [KelimeDefteri](https://github.com/hburakalemdar/KelimeDefteri): an iPhone, iPad and Mac app for learning the English vocabulary in technical books. It schedules reviews with an FSRS-based memory model and has six quiz games, a widget and a share extension. Built with SwiftUI, SwiftData and CloudKit, and covered by 300+ unit tests.
+- [KelimeDefteri](https://github.com/hburakalemdar/KelimeDefteri): an iPhone, iPad and Mac app for learning the English vocabulary in technical books. It schedules reviews with an FSRS-based memory model and has six quiz games, a widget and a share extension. Built with SwiftUI, SwiftData and CloudKit, and covered by 350+ unit tests.
 
 Most of my other work lives in private repositories. Their activity still appears on my contribution graph.
