@@ -13,7 +13,7 @@ On the side, I also build iOS apps with SwiftUI.
 - **Testing & CI:** Go testing, GitHub Actions
 - **AI:** LLM integration with the Claude API
 - **Python:** embeddings and clustering (sentence-transformers, scikit-learn), web scraping (Playwright)
-- **Other:** Docker (Compose), Git
+- **Other:** Docker, Git
 
 **Projects**
 
